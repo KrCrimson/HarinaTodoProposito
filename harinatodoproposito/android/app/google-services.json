@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1002228149306",
+    "project_id": "harinatodoproposito",
+    "storage_bucket": "harinatodoproposito.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002228149306:android:171849f08cab64aecf1903",
+        "android_client_info": {
+          "package_name": "com.example.harinatodoproposito"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkgYZXq0rGpTejpJ3sxqWP2OxQ3n5l_Cc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
