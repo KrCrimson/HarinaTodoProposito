@@ -1,4 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <service android:name="me.carda.awesome_notifications.notifications.services.NotificationService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+    <receiver android:name="me.carda.awesome_notifications.notifications.services.NotificationReceiver" android:enabled="true" android:exported="false"/>
+
+
     <application
         android:label="harinatodoproposito"
         android:name="${applicationName}"
