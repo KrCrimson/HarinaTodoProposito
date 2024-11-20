@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'home_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -34,6 +35,13 @@ class _AuthScreenState extends State<AuthScreen> {
         );
         _showSnackbar('Registro exitoso.');
       }
+
+      // Navegar a la pantalla principal después de un inicio de sesión/registro exitoso
+      if (!mounted) return; // Verificar si el widget aún está montado
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
     } on FirebaseAuthException catch (e) {
       setState(() {
         _errorMessage = e.message ?? 'Ocurrió un error.';
