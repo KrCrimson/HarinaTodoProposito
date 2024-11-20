@@ -1,17 +1,26 @@
 plugins {
-    id "com.android.application"
-    // START: FlutterFire Configuration
-    id 'com.google.gms.google-services'
-    // END: FlutterFire Configuration
-    id "kotlin-android"
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
-    id "dev.flutter.flutter-gradle-plugin"
+    id "com.android.application" // Plugin principal de Android
+    id 'com.google.gms.google-services' // Plugin de Google Services (Firebase)
+    id "kotlin-android" // Soporte para Kotlin (opcional)
+    id "dev.flutter.flutter-gradle-plugin" // Plugin de Flutter
+}
+
+dependencies {
+    // Firebase BoM (Bill of Materials) para versiones consistentes de las bibliotecas de Firebase
+    implementation platform('com.google.firebase:firebase-bom:33.6.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+
+    // TODO: Agregar dependencias específicas de Firebase (Auth, Firestore, etc.)
+    // Por ejemplo:
+    // implementation 'com.google.firebase:firebase-auth'
+    // implementation 'com.google.firebase:firebase-firestore'
 }
 
 android {
     namespace = "com.example.harinatodoproposito"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = flutter.compileSdkVersion // Usa la versión configurada en Flutter
+    ndkVersion = flutter.ndkVersion // Para soporte de compilación nativo (si aplica)
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -23,25 +32,20 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.harinatodoproposito"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        applicationId = "com.example.harinatodoproposito" // ID único de la aplicación
+        minSdk = flutter.minSdkVersion // Versión mínima soportada
+        targetSdk = flutter.targetSdkVersion // Versión objetivo de Android
+        versionCode = flutter.versionCode // Versión del código de compilación
+        versionName = flutter.versionName // Versión legible
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.debug // Configuración de firma (puedes reemplazarla para producción)
         }
     }
 }
 
 flutter {
-    source = "../.."
+    source = "../.." // Ubicación de los archivos de Flutter en el proyecto
 }
