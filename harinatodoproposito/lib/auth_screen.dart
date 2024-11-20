@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'home_screen.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -20,20 +21,41 @@ class _AuthScreenState extends State<AuthScreen> {
     final password = _passwordController.text.trim();
 
     try {
+      UserCredential userCredential;
       if (_isLogin) {
         // Iniciar sesión
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
         _showSnackbar('Inicio de sesión exitoso.');
       } else {
         // Registro
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
         _showSnackbar('Registro exitoso.');
+      }
+
+      // Obtener los datos del usuario autenticado
+      User? user = userCredential.user;
+
+      if (user != null) {
+        try {
+          // Almacenar los datos del usuario en Firestore
+          await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+            'uid': user.uid,
+            'email': user.email,
+            'displayName': user.displayName ?? 'Usuario sin nombre',
+            'photoURL': user.photoURL ?? 'No disponible',
+            'createdAt': FieldValue.serverTimestamp(), // Timestamp de creación
+          });
+          _showSnackbar('Datos del usuario guardados en Firestore.');
+        } catch (e) {
+          _showSnackbar('Error al guardar los datos en Firestore: $e');
+          return; // No continuar si hay un error al guardar
+        }
       }
 
       // Navegar a la pantalla principal después de un inicio de sesión/registro exitoso
